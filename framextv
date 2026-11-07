@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         TMDB → frameXTV Player
 // @namespace    https://tampermonkey.net/
-// @version      2.0.0
+// @version      1.0.0
 // @description  Inserta un reproductor frameXTV en páginas de películas y series de TMDB
 // @match        https://www.themoviedb.org/movie/*
 // @match        https://www.themoviedb.org/tv/*
@@ -18,7 +18,7 @@
 
   function getTmdbInfo() {
     const path = location.pathname;
-    
+
     // Coincide con /movie/12345
     const movieMatch = path.match(/^\/movie\/(\d+)/);
     if (movieMatch) {
@@ -47,24 +47,23 @@
     style.textContent = `
       #${BUTTON_ID} {
         appearance: none;
-        border: 1px solid rgba(255,255,255,.32);
+        border: 1px linear-gradient(135deg, #52525b, #71717a);
         border-radius: 12px;
-        padding: 11px 16px;
+        padding: 1px 16px;
         color: #fff;
-        background: linear-gradient(135deg, #6d28d9, #2563eb);
+        background: linear-gradient(135deg, #18181b, #27272a);
         font: 700 14px/1 system-ui, sans-serif;
         cursor: pointer;
         box-shadow: 0 8px 22px rgba(37,99,235,.28);
         transition: transform .18s ease, filter .18s ease;
-        margin-top: 10px;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 12px;
       }
 
       #${BUTTON_ID}:hover {
         transform: translateY(-2px);
-        filter: brightness(1.12);
+        filter: brightness(1.32);
       }
 
       #${MODAL_ID} {
@@ -177,7 +176,7 @@
     const button = document.createElement('button');
     button.id = BUTTON_ID;
     button.type = 'button';
-    button.textContent = info.type === 'tv' ? '▶ Ver Serie (frameXTV)' : '▶ Abrir frameXTV';
+    button.textContent = info.type === 'tv' ? '▶ Ver stream' : '▶ Ver stream';
     button.addEventListener('click', () => {
       // Re-evaluar en el momento del click para capturar posibles cambios de temporada/episodio en la SPA
       const currentInfo = getTmdbInfo();
